@@ -91,4 +91,5 @@ _(responder brevemente, con base en los resultados obtenidos)_
 
 - Jonathan Gonzalez — implementación secuencial y paralela, benchmark
 - [Nombre compañero 1] — gráfica de rendimiento
-- [Nombre compañero 2] — análisis de resultados
+- [] — análisis de resultados
+- David Atilano — CI/CD y guia de contribucion
