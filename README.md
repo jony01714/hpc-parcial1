@@ -86,10 +86,29 @@ Tiempo promedio de 3 repeticiones por configuración (en segundos), speedup $S_p
    La causa es el *overhead* de paralelizar: crear los procesos, copiar cada parte del arreglo a los workers y
    regresar los resultados, más las partes que siguen siendo secuenciales (generar los datos y unir los resultados), como predice la ley de Amdahl.
 
-4. ¿Por qué el problema seleccionado puede paralelizarse?
-5. ¿En qué momento agregar más workers deja de ser beneficioso?
-6. ¿Qué limitaciones tiene el hardware utilizado?
-7. ¿Este experimento representa HPC o solamente demuestra principios utilizados en HPC? Justifiquen.
+4. **¿Por qué el problema seleccionado puede paralelizarse?**
+   Porque cada elemento se calcula de forma **independiente**: f(x_i) no depende de ningún otro valor del arreglo.
+   Así, el arreglo se divide en `n_workers` bloques (`np.array_split`), cada proceso calcula su bloque sin
+   comunicarse con los demás y al final se unen los resultados. Es un problema de paralelismo de datos (*embarrassingly parallel*).
+
+5. **¿En qué momento agregar más workers deja de ser beneficioso?**
+   Cuando el costo de repartir y comunicar los datos supera al cálculo que hace cada worker. Con la carga ligera
+   eso ocurre desde 2 workers, así que paralelizar nunca convino. Con la carga pesada sí convino hasta 4 workers,
+   aunque la eficiencia ya bajaba (0.74 → 0.69); más allá de 4, que son los núcleos físicos del equipo, se esperaría
+   poca o ninguna mejora, porque los hilos extra del hyperthreading comparten las mismas unidades de cálculo.
+
+6. **¿Qué limitaciones tiene el hardware utilizado?**
+   El Intel i5-1135G7 es un procesador de laptop con **4 núcleos físicos / 8 lógicos** (hyperthreading), así que el
+   paralelismo real se limita a unos 4 procesos de cálculo. Los núcleos comparten la caché L3 y el ancho de banda de
+   la memoria RAM, y al ser un equipo portátil de bajo consumo puede bajar su frecuencia por temperatura en ejecuciones
+   largas. Además, el sistema operativo y otros programas compiten por los mismos núcleos.
+
+7. **¿Este experimento representa HPC o solamente demuestra principios utilizados en HPC? Justifiquen.**
+   **Solo demuestra principios utilizados en HPC.** Se aplican conceptos reales —división de datos, ejecución en
+   paralelo, mediciones repetidas, speedup, eficiencia y el efecto del overhead—, pero se ejecutó en una sola laptop
+   de 4 núcleos. Un sistema HPC usa clústeres con muchos nodos y miles de núcleos, redes de interconexión de alta
+   velocidad, herramientas como MPI y gestores de trabajos, para problemas de una escala mucho mayor.
+
 
 ## Flujo de trabajo (GitFlow)
 
