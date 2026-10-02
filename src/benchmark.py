@@ -84,7 +84,7 @@ def main():
         writer.writeheader()
         writer.writerows(rows)
 
-    print(f"Resultados guardados en {results_path}")
+    print(f"Resultados guardados en {os.path.relpath(results_path)}")
 
 
 if __name__ == "__main__":
