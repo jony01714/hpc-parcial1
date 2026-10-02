@@ -28,9 +28,12 @@ pip install -r requirements.txt
 
 ## Cómo ejecutar
 
+> **Nota:** en la máquina usada para el desarrollo solo existe el comando `python3` (no `python`), por eso los ejemplos usan `python3`. Dentro de un entorno virtual activado, `python` también funciona.
+
 ```bash
-python src/benchmark.py --size 20000000 --workers 1 2 4 --repeats 3
-python src/plot_results.py
+python3 src/benchmark.py --size 20000000 --workers 1 2 4 --repeats 3
+python3 src/benchmark.py --heavy --size 2000000 --workers 1 2 4 --repeats 3
+python3 src/plot_results.py
 ```
 
 O abrir `analisis.ipynb`, que corre ambos pasos y muestra resultados y gráfica inline.
