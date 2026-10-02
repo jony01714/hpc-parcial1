@@ -13,8 +13,8 @@ hpc-parcial1/
 │ ├── benchmark.py # mide tiempos, calcula speedup y eficiencia
 │ └── plot_results.py # genera grafica de resultados
 ├── results/
-│ ├── results.csv # resultados del benchmark (no versionado)
-│ └── performance_plot.png # grafica generada (no versionado)
+│ ├── results.csv # resultados del benchmark
+│ └── performance_plot.png # grafica generada
 ├── analisis.ipynb # notebook con desarrollo, experimentacion y graficas
 ├── requirements.txt
 └── README.md
