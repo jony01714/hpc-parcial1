@@ -1,8 +1,10 @@
 """
 plot_results.py
 Lee los resultados del benchmark (results/results.csv y, si existe,
-results/results_heavy.csv) y genera la grafica de rendimiento:
-Numero de workers vs. tiempo de ejecucion.
+results/results_heavy.csv) y genera una grafica de rendimiento con:
+  1) Tiempo promedio vs. numero de workers
+  2) Speedup vs. numero de workers (con la linea de speedup ideal)
+  3) Eficiencia vs. numero de workers
 Las imagenes se guardan en results/performance_plot.png
 (y results/performance_plot_heavy.png para la carga pesada).
 """
@@ -24,21 +26,48 @@ def load_results(path: str) -> dict:
     return {
         "workers": [int(r["workers"]) for r in rows],
         "promedio": [float(r["promedio"]) for r in rows],
+        "speedup": [float(r["speedup"]) for r in rows],
+        "eficiencia": [float(r["eficiencia"]) for r in rows],
     }
 
 
 def plot(data: dict, title: str, output_path: str) -> None:
-    """Dibuja workers vs. tiempo promedio y guarda la imagen."""
+    """Dibuja las 3 graficas lado a lado y guarda la imagen."""
     workers = data["workers"]
-    fig, ax = plt.subplots(figsize=(6, 4.5))
-    fig.suptitle(title, fontsize=12)
+    fig, axes = plt.subplots(1, 3, figsize=(15, 4.5))
+    fig.suptitle(title, fontsize=14)
 
+    # 1) Tiempo promedio
+    ax = axes[0]
     ax.bar([str(w) for w in workers], data["promedio"], color="#4C72B0")
     for i, t in enumerate(data["promedio"]):
         ax.text(i, t, f"{t:.3f}s", ha="center", va="bottom", fontsize=9)
     ax.set_title("Tiempo promedio de ejecucion")
     ax.set_xlabel("Workers")
     ax.set_ylabel("Tiempo (s)")
+
+    # 2) Speedup real vs ideal
+    ax = axes[1]
+    ax.plot(workers, data["speedup"], "o-", color="#DD8452", label="Speedup real")
+    ax.plot(workers, workers, "--", color="gray", label="Speedup ideal (S = p)")
+    ax.set_title("Speedup  (S_p = T_1 / T_p)")
+    ax.set_xlabel("Workers")
+    ax.set_ylabel("Speedup")
+    ax.set_xticks(workers)
+    ax.legend()
+    ax.grid(alpha=0.3)
+
+    # 3) Eficiencia
+    ax = axes[2]
+    ax.plot(workers, data["eficiencia"], "s-", color="#55A868", label="Eficiencia real")
+    ax.axhline(1.0, linestyle="--", color="gray", label="Eficiencia ideal (1.0)")
+    ax.set_title("Eficiencia  (E_p = S_p / p)")
+    ax.set_xlabel("Workers")
+    ax.set_ylabel("Eficiencia")
+    ax.set_xticks(workers)
+    ax.set_ylim(bottom=0)
+    ax.legend()
+    ax.grid(alpha=0.3)
 
     fig.tight_layout()
     fig.savefig(output_path, dpi=150)
