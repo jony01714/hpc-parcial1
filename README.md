@@ -71,11 +71,21 @@ Tiempo promedio de 3 repeticiones por configuración (en segundos), speedup $S_p
 
 ## Análisis
 
-_(responder brevemente, con base en los resultados obtenidos)_
+1. **¿La ejecución paralela fue más rápida que la secuencial?**
+   Depende de la carga. Con la función ligera f(x) **no**: la versión secuencial (1 worker) tardó 1.20 s,
+   mientras que con 2 workers tardó 1.78 s y con 4 workers 1.34 s (speedup menor a 1).
+   Con la carga pesada f_heavy **sí**: el tiempo bajó de 25.29 s (1 worker) a 17.12 s (2 workers) y a 9.17 s (4 workers).
 
-1. ¿La ejecución paralela fue más rápida que la secuencial?
-2. ¿Qué número de workers obtuvo el menor tiempo?
-3. ¿Duplicar el número de workers duplicó el rendimiento? ¿Por qué?
+2. **¿Qué número de workers obtuvo el menor tiempo?**
+   Con carga ligera, **1 worker** (1.20 s): la versión secuencial fue la más rápida.
+   Con carga pesada, **4 workers** (9.17 s), con un speedup de 2.76.
+
+3. **¿Duplicar el número de workers duplicó el rendimiento? ¿Por qué?**
+   **No.** Con carga ligera, pasar de 1 a 2 workers empeoró el tiempo (S₂ = 0.67). Con carga pesada, 2 workers
+   dieron S₂ = 1.48 (no 2) y 4 workers S₄ = 2.76 (no 4); la eficiencia bajó de 1.0 a 0.74 y 0.69.
+   La causa es el *overhead* de paralelizar: crear los procesos, copiar cada parte del arreglo a los workers y
+   regresar los resultados, más las partes que siguen siendo secuenciales (generar los datos y unir los resultados), como predice la ley de Amdahl.
+
 4. ¿Por qué el problema seleccionado puede paralelizarse?
 5. ¿En qué momento agregar más workers deja de ser beneficioso?
 6. ¿Qué limitaciones tiene el hardware utilizado?
