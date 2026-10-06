@@ -91,4 +91,4 @@ _(responder brevemente, con base en los resultados obtenidos)_
 
 - Jonathan Gonzalez — implementación secuencial y paralela, benchmark
 - [Nombre compañero 1] — gráfica de rendimiento
-- [Nombre compañero 2] — análisis de resultados
+- Ricardo Leonel Ordaz Aguilar — pruebas unitarias y robustez
