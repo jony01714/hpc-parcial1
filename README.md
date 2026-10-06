@@ -123,6 +123,7 @@ pytest tests/
 
 ## Flujo de trabajo (GitFlow)
 
+- [Ver diagrama del flujo GitFlow](docs/gitflow-diagrama.md).
 - `main`: versión final estable que se entrega.
 - `develop`: rama de integración de todas las features antes de pasar a main.
 - `feature/*`: una rama por persona/tarea, con Pull Request hacia develop.
@@ -130,6 +131,6 @@ pytest tests/
 ## Equipo
 
 - Jonathan Gonzalez — implementación secuencial y paralela, benchmark
-- [Nombre compañero 1] — gráfica de rendimiento
+- David Israel Atilano Quiroz — apoyo en documentación y organización del equipo
 - Ricardo Leonel Ordaz Aguilar — pruebas unitarias y robustez
 - Javier Yael Narváez Olguín — análisis de resultados y CI/CD
