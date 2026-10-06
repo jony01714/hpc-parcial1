@@ -119,6 +119,6 @@ Tiempo promedio de 3 repeticiones por configuración (en segundos), speedup $S_p
 ## Equipo
 
 - Jonathan Gonzalez — implementación secuencial y paralela, benchmark
-- [Nombre compañero 1] — gráfica de rendimiento
 - Ricardo Leonel Ordaz Aguilar — pruebas unitarias y robustez
 - Javier Yael Narváez Olguín — análisis de resultados y CI/CD
+- David Atilano — CI/CD y guia de contribucion
