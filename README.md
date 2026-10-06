@@ -110,6 +110,17 @@ Tiempo promedio de 3 repeticiones por configuración (en segundos), speedup $S_p
    velocidad, herramientas como MPI y gestores de trabajos, para problemas de una escala mucho mayor.
 
 
+## Pruebas
+
+Las pruebas comparan `f` con la fórmula esperada para valores conocidos. También verifican que `run_sequential` y `process_chunk` devuelvan lo mismo que `f` para los arreglos y fragmentos probados.
+
+Para instalarlas y ejecutarlas:
+
+```bash
+pip install -r requirements.txt
+pytest tests/
+```
+
 ## Flujo de trabajo (GitFlow)
 
 - `main`: versión final estable que se entrega.
