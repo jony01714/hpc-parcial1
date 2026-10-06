@@ -13,8 +13,8 @@ hpc-parcial1/
 │ ├── benchmark.py # mide tiempos, calcula speedup y eficiencia
 │ └── plot_results.py # genera grafica de resultados
 ├── results/
-│ ├── results.csv # resultados del benchmark (no versionado)
-│ └── performance_plot.png # grafica generada (no versionado)
+│ ├── results.csv # resultados del benchmark
+│ └── performance_plot.png # grafica generada
 ├── analisis.ipynb # notebook con desarrollo, experimentacion y graficas
 ├── requirements.txt
 └── README.md
@@ -49,7 +49,25 @@ O abrir `analisis.ipynb`, que corre ambos pasos y muestra resultados y gráfica 
 
 ## Resultados
 
-_(completar después de correr el benchmark: tabla de tiempos, speedup y eficiencia, y referencia a la gráfica en `results/performance_plot.png`)_
+Tiempo promedio de 3 repeticiones por configuración (en segundos), speedup $S_p = T_1 / T_p$ y eficiencia $E_p = S_p / p$, para cada número de workers.
+
+| Workers | Promedio (s) | Speedup | Eficiencia |
+|--------:|-------------:|--------:|-----------:|
+| 1 | 1.1955 | 1.0000 | 1.0000 |
+| 2 | 1.7843 | 0.6700 | 0.3350 |
+| 4 | 1.3386 | 0.8931 | 0.2233 |
+
+![Gráfica de rendimiento (carga ligera)](results/performance_plot.png)
+
+### Carga pesada (f_heavy)
+
+| Workers | Promedio (s) | Speedup | Eficiencia |
+|--------:|-------------:|--------:|-----------:|
+| 1 | 25.2872 | 1.0000 | 1.0000 |
+| 2 | 17.1213 | 1.4769 | 0.7385 |
+| 4 | 9.1663 | 2.7587 | 0.6897 |
+
+![Gráfica de rendimiento (carga pesada)](results/performance_plot_heavy.png)
 
 ## Análisis
 
@@ -73,4 +91,5 @@ _(responder brevemente, con base en los resultados obtenidos)_
 
 - Jonathan Gonzalez — implementación secuencial y paralela, benchmark
 - [Nombre compañero 1] — gráfica de rendimiento
-- [Nombre compañero 2] — análisis de resultados
+- [] — análisis de resultados
+- David Atilano — CI/CD y guia de contribucion
